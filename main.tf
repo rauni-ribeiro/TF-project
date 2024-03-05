@@ -1,9 +1,9 @@
-#Configuring the provider (AWS) and its region - Please notice that you can choose whatever region you prefer
+# Configuring the provider (AWS) and its region - Please notice that you can choose whatever region you prefer
 provider "aws" {
   region = var.region
 }
 
-#Configuring EC2 instance details
+# Configuring EC2 instance details
 resource "aws_instance" "web-server-sample" {
   ami           = var.ami
   instance_type = var.instance_type
@@ -13,8 +13,7 @@ resource "aws_instance" "web-server-sample" {
   }
 }
 
-
-#Storing the .tfstate file in AWS S3 bucket for better versioning and security 
+# Move the terraform block outside of other blocks
 terraform {
   backend "s3" {
     bucket = var.s3_bucket_name
