@@ -12,8 +12,9 @@ phases:
   pre_build:
     commands:
       - echo "Current Working Directory:" $(pwd) #troubleshoot with pwd
-      - chmod +x webapp-script.sh
+      - chmod +x webapp-script.sh terraform-apply.sh
       - ./webapp-script.sh
   build:
     commands:
       - echo "Build phase"
+      - ./terraform-apply.sh
