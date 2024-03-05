@@ -9,15 +9,15 @@ resource "aws_instance" "web-server-sample" {
   instance_type = var.instance_type
   key_name      = var.key_name
   tags = {
-    Name = "web-server-sample"
+    Name = var.webserver-sample
   }
 }
 
 terraform {
   backend "s3" {
-    bucket = var.s3_bucket_name
-    key = var.s3_path_key  #specify the state file name + create folder
-    region = var.region_name
+    bucket = "tfproject-us-east-1-tfstate"
+    key = "build/terraform.tfstate"  #specify the state file name + create folder
+    region = "us-east-1"
     profile = "default"
   }
 }
