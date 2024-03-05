@@ -13,11 +13,11 @@ resource "aws_instance" "web-server-sample" {
   }
 }
 
-# Move the terraform block outside of other blocks
 terraform {
   backend "s3" {
     bucket = var.s3_bucket_name
-    key    = var.s3_path_key
+    key = var.s3_path_key  #specify the state file name + create folder
     region = var.region_name
+    profile = "default"
   }
 }

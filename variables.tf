@@ -20,7 +20,7 @@ variable "key_name" {
 
 variable "s3_path_key" {
   type    = string
-  default = "Users/macbookpro/Documents/TF-CodeBuild-Project/terraform.tfstate"
+  default = file("Users/macbookpro/Documents/TF-CodeBuild-Project/terraform.tfstate")
 }
 
 variable "s3_bucket_name" {
