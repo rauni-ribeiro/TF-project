@@ -9,7 +9,7 @@ resource "aws_instance" "web-server-sample" {
   instance_type = var.instance_type
   key_name      = var.key_name
   tags = {
-    Name = var.webserver-sample
+    Name = "web-server-sample"
   }
 }
 
