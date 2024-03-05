@@ -3,6 +3,12 @@
 #exit on failure mode
 set -eu
 
+# Get private IP address of the newly deployed EC2 instance
+private_ip=$(aws ec2 describe-instances --filters "Name=web-server-sample,Values=running" --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
+
+# Connect to EC2 instance using private IP address
+ssh -i newkey-TFproject ec2-user@$private_ip
+
 
 <<-EOF
     #!/bin/bash
