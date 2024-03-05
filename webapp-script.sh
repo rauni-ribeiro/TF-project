@@ -7,7 +7,7 @@ set -eu
 private_ip=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=webserver" --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
 
 # Connect to EC2 instance using private IP address
-ssh -i newkey-TFproject ec2-user@$private_ip
+ssh -i tfproject-key.pem ec2-user@$private_ip
 
 
 <<-EOF
