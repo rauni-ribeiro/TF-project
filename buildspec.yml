@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Install phase"
+  pre_build:
+    commands:
+      - echo "Current Working Directory:" $(pwd) #troubleshoot with pwd
+      #- cd cicd
+      #- echo "Current Working Directory after CD CICD command:" $(pwd) 
+      - chmod +x webapp-script.sh
+      - ./webapp-script.sh
+  build:
+    commands:
+      - echo "Build phase"
