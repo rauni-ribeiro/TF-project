@@ -4,12 +4,12 @@ provider "aws" {
 }
 
 # Configuring EC2 instance details
-resource "aws_instance" "web-server-sample" {
+resource "aws_instance" "webserver" {
   ami           = var.ami_id
   instance_type = var.instance_type
   key_name      = var.key_name
   tags = {
-    Name = "web-server-sample"
+    Name = "webserver"
   }
 }
 
