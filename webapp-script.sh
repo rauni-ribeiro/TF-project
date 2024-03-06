@@ -8,6 +8,7 @@ yum update -y
 yum install -y httpd
 
 # Start and enable Apache server
+sleep 10
 sudo systemctl start httpd
 sudo systemctl enable httpd
 
