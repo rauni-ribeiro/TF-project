@@ -14,14 +14,11 @@ phases:
       - echo "Current Working Directory:" $(pwd) #troubleshoot with pwd
       - chmod +x webapp-script.sh terraform-apply.sh aws-credentials.sh
       - ./aws-credentials.sh
-      - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-      - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-      - export AWS_DEFAULT_REGION=$REGION
   build:
     commands:
       - echo "Build phase"
       - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
       - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-      - aws configure set region $REGION
+      - aws configure set region $AWS_DEFAULT_REGION
       #- ./webapp-script.sh
       - ./terraform-apply.sh
