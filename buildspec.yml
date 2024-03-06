@@ -13,9 +13,9 @@ phases:
     commands:
       - echo "Current Working Directory:" $(pwd) #troubleshoot with pwd
       - chmod +x webapp-script.sh terraform-apply.sh aws-credentials.sh
+      - ./aws-credentials.sh
   build:
     commands:
       - echo "Build phase"
       #- ./webapp-script.sh
       - ./terraform-apply.sh
-      - ./aws-credentials.sh
