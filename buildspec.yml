@@ -17,4 +17,4 @@ phases:
     commands:
       - echo "Build phase"
       - ./terraform-apply.sh
-      - ./webapp-script.sh
+      #- ./webapp-script.sh
