@@ -11,7 +11,7 @@ resource "aws_instance" "webserver" {
   tags = {
     Name = "webserver"
   }
-  #iam_instance_profile = "ReadS3BucketsTest"
+  iam_instance_profile = "ReadS3BucketsTest" #this provides our EC2 instance authentication - check README.md for more information!
 }
 
 terraform {
