@@ -11,6 +11,7 @@ resource "aws_instance" "webserver" {
   tags = {
     Name = "webserver"
   }
+  iam_instance_profile = "ReadS3BucketsTest"
 }
 
 terraform {
