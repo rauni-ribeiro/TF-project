@@ -9,14 +9,14 @@ phases:
       - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip
       - unzip terraform.zip
       - mv terraform /usr/local/bin/
-pre_build:
-  commands:
-    - echo "Current Working Directory:" $(pwd) #troubleshoot with pwd
-    - chmod +x webapp-script.sh terraform-apply.sh aws-credentials.sh
-    - ./aws-credentials.sh
-    - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-    - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-    - export AWS_DEFAULT_REGION=$REGION
+  pre_build:
+    commands:
+      - echo "Current Working Directory:" $(pwd) #troubleshoot with pwd
+      - chmod +x webapp-script.sh terraform-apply.sh aws-credentials.sh
+      - ./aws-credentials.sh
+      - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+      - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+      - export AWS_DEFAULT_REGION=$REGION
   build:
     commands:
       - echo "Build phase"
