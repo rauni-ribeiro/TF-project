@@ -12,7 +12,7 @@ resource "aws_instance" "webserver" {
     Name = "webserver"
   }
   iam_instance_profile = "ReadS3BucketsTest" #This provides our EC2 instance authentication - check README.md for more information!
-  vpc_security_group_ids = [aws_security_group.SG]  #Assigning our Security Group ID to our EC2 instance.
+  vpc_security_group_ids = [aws_security_group.SG.id]  #Assigning our Security Group ID to our EC2 instance.
 }
 
 terraform {
