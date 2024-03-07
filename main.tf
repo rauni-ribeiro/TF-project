@@ -11,7 +11,8 @@ resource "aws_instance" "webserver" {
   tags = {
     Name = "webserver"
   }
-  iam_instance_profile = "ReadS3BucketsTest" #this provides our EC2 instance authentication - check README.md for more information!
+  iam_instance_profile = "ReadS3BucketsTest" #This provides our EC2 instance authentication - check README.md for more information!
+  vpc_security_group_ids = [aws_security_group.SG]  #Assigning our Security Group ID to our EC2 instance.
 }
 
 terraform {
@@ -50,6 +51,6 @@ resource "aws_security_group" "SG" {
   }
 
   tags = {
-    Name = "example-security-group"
+    Name = "TFproject-SG"
   }
 }
