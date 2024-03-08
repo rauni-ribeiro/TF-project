@@ -9,8 +9,6 @@ phases:
       - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip
       - unzip terraform.zip
       - mv terraform /usr/local/bin/
-      - chmod +x create_iam_role.sh
-      - ./create_iam_role.sh
       
   pre_build:
     commands:
