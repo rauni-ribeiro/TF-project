@@ -33,3 +33,8 @@ variable "webserver-sample" {
   type = string
   default = "web-server-sample"
 }
+
+variable "aws_iam_roles" {
+  type    = list(string)
+  default = ["arn:aws:iam::aws:policy/AWSCodeBuildReadOnlyAccess", "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"]
+} 

@@ -22,8 +22,9 @@ resource "aws_iam_role" "ec2_role" {
 
 #creating the policy attachment for our IAM role (ec2_role)
 resource "aws_iam_role_policy_attachment" "ec2_policy_attachment" {
+  count = length(var.aws_iam_roles)
   role = aws_iam_role.ec2_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildReadOnlyAccess"
+  policy_arn = var.aws_iam_roles[count.index]
 }
 
 #creating an IAM instance profile to associate with the EC2 instance
