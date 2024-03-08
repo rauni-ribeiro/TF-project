@@ -54,3 +54,27 @@ resource "aws_security_group" "SG" {
     Name = "TFproject-SG"
   }
 }
+
+#creating an IAM role to authenticate Environment Variables (used to authenticate our ec2 instance)
+resource "aws_iam_role" "ec2_role" {
+  name = "TFproject-EC2role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+#creating the policy attachment for our IAM role (ec2_role)
+resource "aws_iam_policy_attachment" "ec2_policy_attachment" {
+  name = "TFproject_iam_policy_attachment"
+  roles = [aws_iam_role.ec2_role.name] #Referencing the IAM role we just created
+  policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildReadOnlyAccess"
+}
