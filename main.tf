@@ -57,7 +57,7 @@ resource "aws_security_group" "SG" {
 
 #creating an IAM role to authenticate Environment Variables (used to authenticate our ec2 instance)
 resource "aws_iam_role" "ec2_role" {
-  name = "TFproject-EC2role"
+  name = "EC2role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
