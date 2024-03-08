@@ -11,7 +11,7 @@ resource "aws_instance" "webserver" {
   tags = {
     Name = "webserver"
   }
-  iam_instance_profile = aws_iam_role.ec2_role.name #This provides our EC2 instance authentication - check README.md for more information!
+  iam_instance_profile = aws_iam_role.ec2_role.arn #This provides our EC2 instance authentication - check README.md for more information!
   vpc_security_group_ids = [aws_security_group.SG.id]  #Assigning our Security Group ID to our EC2 instance.
 }
 
