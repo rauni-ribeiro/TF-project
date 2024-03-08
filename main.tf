@@ -26,6 +26,12 @@ resource "aws_iam_role_policy_attachment" "ec2_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildReadOnlyAccess"
 }
 
+#creating an IAM instance profile to associate with the EC2 instance
+resource "aws_iam_instance_profile" "tfproject_profile" {
+  name = "tfproject_profile"
+  role = aws_iam_role.ec2_role.name
+}
+
 # Configuring EC2 instance details
 resource "aws_instance" "webserver" {
   ami           = var.ami_id
@@ -34,7 +40,7 @@ resource "aws_instance" "webserver" {
   tags = {
     Name = "webserver"
   }
-  iam_instance_profile = aws_iam_role.ec2_role.name #This provides our EC2 instance authentication - check README.md for more information!
+  iam_instance_profile = aws_iam_instance_profile.tfproject_profile #Associating the IAM instance profile with the EC2 instance
   vpc_security_group_ids = [aws_security_group.SG.id]  #Assigning our Security Group ID to our EC2 instance.
 }
 
