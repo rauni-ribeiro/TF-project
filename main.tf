@@ -3,6 +3,29 @@ provider "aws" {
   region = var.region_name
 }
 
+#creating an IAM role to authenticate Environment Variables (used to authenticate our ec2 instance)
+resource "aws_iam_role" "ec2_role" {
+  name = "EC2role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+#creating the policy attachment for our IAM role (ec2_role)
+resource "aws_iam_role_policy_attachment" "ec2_policy_attachment" {
+  role = aws_iam_role.ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildReadOnlyAccess"
+}
+
 # Configuring EC2 instance details
 resource "aws_instance" "webserver" {
   ami           = var.ami_id
@@ -53,27 +76,4 @@ resource "aws_security_group" "SG" {
   tags = {
     Name = "TFproject-SG"
   }
-}
-
-#creating an IAM role to authenticate Environment Variables (used to authenticate our ec2 instance)
-resource "aws_iam_role" "ec2_role" {
-  name = "EC2role"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        },
-        Action = "sts:AssumeRole"
-      }
-    ]
-  })
-}
-
-#creating the policy attachment for our IAM role (ec2_role)
-resource "aws_iam_role_policy_attachment" "ec2_policy_attachment" {
-  role = aws_iam_role.ec2_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildReadOnlyAccess"
 }
