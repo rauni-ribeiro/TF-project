@@ -13,6 +13,7 @@ phases:
   pre_build:
     commands:
       - echo "Current Working Directory:" $(pwd) #troubleshoot with pwd
+      - cd shell-scripts
       - chmod +x webapp-script.sh terraform-apply.sh aws-credentials.sh
       - ./aws-credentials.sh
   build:
