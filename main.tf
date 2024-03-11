@@ -41,9 +41,10 @@ resource "aws_instance" "webserver" {
   tags = {
     Name = "webserver"
   }
-  iam_instance_profile = aws_iam_instance_profile.tfproject_profile.name #Associating the IAM instance profile with the EC2 instance
+  iam_instance_profile = aws_iam_instance_profile.tfproject_profile.name #Associating the IAM instance profile with the EC2 instance.
   vpc_security_group_ids = [aws_security_group.SG.id]  #Assigning our Security Group ID to our EC2 instance.
-  subnet_id = aws_subnet.tf_subnet.id #Assigning our Subnet ID to our EC2 instance
+  subnet_id = aws_subnet.tf_subnet.id #Assigning our Subnet ID to our EC2 instance.
+  associate_public_ip_address = true #assigning a public IPv4 address to our EC2 instance.
 }
 
 terraform {
