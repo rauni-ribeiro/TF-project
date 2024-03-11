@@ -59,6 +59,7 @@ terraform {
 resource "aws_security_group" "SG" {
   name        = "TFproject-SG"
   description = "Allow HTTP and SSH traffic from any source"
+  vpc_id = aws_vpc.tf_vpc.id
 
   ingress {
     from_port   = 80
