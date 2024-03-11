@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# printing current directory for debugging purposes - aws-credentials
+pwd
+
 # exporting environment variables set up in AWS CodeBuild
 export AWS_ACCESS_KEY_ID=$access_key
 export AWS_SECRET_ACCESS_KEY=$secret_key

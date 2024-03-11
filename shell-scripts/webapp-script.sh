@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# printing current directory for debugging purposes - Webapp-scripts
+pwd
+
 # Exit on failure mode
 set -eu
 
