@@ -43,12 +43,13 @@ resource "aws_instance" "webserver" {
   }
   iam_instance_profile = aws_iam_instance_profile.tfproject_profile.name #Associating the IAM instance profile with the EC2 instance
   vpc_security_group_ids = [aws_security_group.SG.id]  #Assigning our Security Group ID to our EC2 instance.
+  subnet_id = aws_subnet.tf_subnet.id #Assigning our Subnet ID to our EC2 instance
 }
 
 terraform {
   backend "s3" {
     bucket = "tfproject-us-east-1-tfstate"
-    key = "build/terraform.tfstate"  #specify the state file name + create folder
+    key = "build/terraform.tfstate"  #specify the state file name + creates a build folder
     region = "us-east-1"
     profile = "default"
   }
@@ -82,5 +83,30 @@ resource "aws_security_group" "SG" {
 
   tags = {
     Name = "TFproject-SG"
+  }
+}
+
+#creating a VPC
+resource "aws_vpc" "tf_vpc" {
+  cidr_block = "10.0.0.0/16"
+  tags = {
+    Name = "TFproject-VPC"
+  }
+}
+
+#Creating an Internet Gateway
+resource "aws_internet_gateway" "tf_igw" {
+  vpc_id = aws_vpc.tf_vpc.id
+  tags = {
+    Name = "TFproject-IGW"
+  }
+}
+
+#Creating a Subnet
+resource "aws_subnet" "tf_subnet" {
+  vpc_id = aws_vpc.tf_vpc.id
+  cidr_block = "10.0.0.0/24"
+  tags = {
+    Name = "TFproject-Subnet"
   }
 }
