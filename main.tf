@@ -5,6 +5,7 @@ provider "aws" {
 
 #creating an IAM role to authenticate Environment Variables (used to authenticate our ec2 instance)
 resource "aws_iam_role" "ec2_role" {
+  count = data.aws_iam_role_exists ? 0 : 1  # checks if iam role exists before creating it. If it does, then 'count' is set to 0 (role won`t be created)
   name = "EC2role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
