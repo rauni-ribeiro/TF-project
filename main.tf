@@ -4,8 +4,8 @@ provider "aws" {
 }
 
 #retriving data source from our EC2 instance in order to fetch and validate if the role already exists
-data "aws_iam_role_exists" "ec2_role" {
-  role_name = "EC2role"
+data "aws_iam_role" "ec2_role" {
+  name = "EC2role"
 }
 
 #creating an IAM role to authenticate Environment Variables (used to authenticate our ec2 instance)
