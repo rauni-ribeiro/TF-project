@@ -28,8 +28,14 @@ resource "aws_iam_role_policy_attachment" "ec2_policy_attachment" {
   policy_arn = var.aws_iam_roles[count.index]
 }
 
+#Data source to fetch current status of instance_profile
+data "aws_iam_instance_profile" "tfproject_profile" {
+  name = "tfproject_profile"
+}
+
 #creating an IAM instance profile to associate with the EC2 instance
 resource "aws_iam_instance_profile" "tfproject_profile" {
+  count = data.aws_iam_instance_profile.tfproject_profile.name != null ? 0 : 1
   name = "tfproject_profile"
   role = aws_iam_role.ec2_role.name
 }
@@ -42,7 +48,7 @@ resource "aws_instance" "webserver" {
   tags = {
     Name = "webserver"
   }
-  iam_instance_profile = aws_iam_instance_profile.tfproject_profile.name #Associating the IAM instance profile with the EC2 instance.
+  iam_instance_profile = aws_iam_instance_profile.tfproject_profile[0].name #Associating the IAM instance profile with the EC2 instance.
   vpc_security_group_ids = [aws_security_group.SG.id]  #Assigning our Security Group ID to our EC2 instance.
   subnet_id = aws_subnet.tf_subnet.id #Assigning our Subnet ID to our EC2 instance.
   associate_public_ip_address = true #assigning a public IPv4 address to our EC2 instance.
