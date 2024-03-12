@@ -3,14 +3,9 @@ provider "aws" {
   region = var.region_name
 }
 
-#retriving data source from our EC2 instance in order to fetch and validate if the role already exists
-data "aws_iam_role" "ec2_role" {
-  name = "EC2role"
-}
-
 #creating an IAM role to authenticate Environment Variables (used to authenticate our ec2 instance)
 resource "aws_iam_role" "ec2_role" {
-  count = count = length(data.aws_iam_role.ec2_role.id) == 0 ? 1 : 0 # checks if iam role exists before creating it. If role length is not empty then it exists.
+
   name = "EC2role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
