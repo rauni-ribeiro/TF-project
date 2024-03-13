@@ -16,6 +16,7 @@ phases:
       - cd shell-scripts
       - chmod +x webapp-script.sh terraform-apply.sh aws-credentials.sh
       - ./aws-credentials.sh
+      - ./webapp-script.sh
   build:
     commands:
       - echo "Build phase"
@@ -23,4 +24,3 @@ phases:
       - aws configure set aws_secret_access_key $secret_key
       - aws configure set region $region_key
       - ./terraform-apply.sh
-      - ./webapp-script.sh
