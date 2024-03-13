@@ -5,7 +5,7 @@ variable "region_name" {
 
 variable "ami_id" {
   type    = string
-  default = "ami-02d7fd1c2af6eead0"
+  default = "ami-0d7a109bf30624c99"
 }
 
 variable "instance_type" {
