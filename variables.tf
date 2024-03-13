@@ -36,5 +36,5 @@ variable "webserver-sample" {
 
 variable "aws_iam_roles" {
   type    = list(string)
-  default = ["arn:aws:iam::aws:policy/AWSCodeBuildReadOnlyAccess", "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"]
+  default = ["arn:aws:iam::aws:policy/AWSCodeBuildReadOnlyAccess", "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess", "arn:aws:iam::aws:policy/AmazonS3FullAccess"]
 } 
