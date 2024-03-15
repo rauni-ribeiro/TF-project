@@ -9,14 +9,15 @@ phases:
       - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip
       - unzip terraform.zip
       - mv terraform /usr/local/bin/
+      - echo "Current Working Directory:" $(pwd) #troubleshoot with pwd
+      - cd shell-scripts
+      - chmod +x webapp-script.sh
+      - ./webapp-script.sh
       
   pre_build:
     commands:
-      - echo "Current Working Directory:" $(pwd) #troubleshoot with pwd
-      - cd shell-scripts
       - chmod +x webapp-script.sh terraform-apply.sh aws-credentials.sh
       - ./aws-credentials.sh
-      - ./webapp-script.sh
   build:
     commands:
       - echo "Build phase"
