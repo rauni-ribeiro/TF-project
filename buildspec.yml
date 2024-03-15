@@ -16,7 +16,7 @@ phases:
       
   pre_build:
     commands:
-      - chmod +x webapp-script.sh terraform-apply.sh aws-credentials.sh
+      - chmod +x terraform-apply.sh aws-credentials.sh
       - ./aws-credentials.sh
   build:
     commands:
