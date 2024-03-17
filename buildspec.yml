@@ -16,7 +16,7 @@ phases:
       
   pre_build:
     commands:
-      - chmod +x terraform-apply.sh aws-credentials.sh
+      - chmod +x terraform-apply.sh aws-credentials.sh start-apache-server.sh
       - ./aws-credentials.sh
   build:
     commands:
@@ -25,3 +25,4 @@ phases:
       - aws configure set aws_secret_access_key $secret_key
       - aws configure set region $region_key
       - ./terraform-apply.sh
+      - ./start-apache-server.sh
