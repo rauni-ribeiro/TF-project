@@ -11,12 +11,11 @@ phases:
       - mv terraform /usr/local/bin/
       - echo "Current Working Directory:" $(pwd) #troubleshoot with pwd
       - cd shell-scripts
-      - chmod +x webapp-script.sh
-      - ./webapp-script.sh
+
       
   pre_build:
     commands:
-      - chmod +x terraform-apply.sh aws-credentials.sh start-apache-server.sh
+      - chmod +x terraform-apply.sh aws-credentials.sh
       - ./aws-credentials.sh
   build:
     commands:
@@ -25,4 +24,5 @@ phases:
       - aws configure set aws_secret_access_key $secret_key
       - aws configure set region $region_key
       - ./terraform-apply.sh
-      - #./start-apache-server.sh
+      - chmod +x webapp-script.sh
+      - ./webapp-script.sh
