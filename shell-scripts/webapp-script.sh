@@ -17,5 +17,6 @@ sudo aws s3 cp s3://tfproject-html/index.html /var/www/html/ --metadata-directiv
 sudo systemctl restart httpd
 EOF
 
-sudo chmod +x apache-script.sh
-sudo ./apache-script.sh
+sleep 10
+#sudo chmod +x apache-script.sh
+#sudo ./apache-script.sh
