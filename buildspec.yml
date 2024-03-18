@@ -24,3 +24,6 @@ phases:
       - aws configure set aws_secret_access_key $secret_key
       - aws configure set region $region_key
       - ./terraform-apply.sh
+  artifacts:
+    files:
+    - '**/*'
