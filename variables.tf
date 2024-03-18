@@ -37,4 +37,16 @@ variable "webserver-sample" {
 variable "aws_iam_roles" {
   type    = list(string)
   default = ["arn:aws:iam::aws:policy/AWSCodeBuildReadOnlyAccess", "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess", "arn:aws:iam::aws:policy/AmazonS3FullAccess"]
-} 
+}
+
+variable "user_data_webserver_script" {
+  default = <<SCRIPT
+  #!/bin/bash
+  sudo yum update -y
+  sudo yum install -y httpd
+  sudo systemctl start httpd
+  sudo systemctl enable httpd
+  sudo aws s3 cp s3://tfproject-html/index.html /var/www/html/ --metadata-directive REPLACE --acl public-read
+  sudo systemctl restart httpd
+SCRIPT
+}
