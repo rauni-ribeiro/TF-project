@@ -107,7 +107,7 @@ resource "aws_internet_gateway" "tf_igw" {
   }
 }
 
-#Creating a Subnet
+#Creating a Subnet 
 resource "aws_subnet" "tf_subnet" {
   vpc_id = aws_vpc.tf_vpc.id
   cidr_block = "10.0.0.0/24"
