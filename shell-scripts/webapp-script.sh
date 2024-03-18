@@ -7,10 +7,10 @@ pwd
 set -eu
 
 # Add systemd configuration to wsl.conf
-sudo nano /etc/wsl.conf <<EOF
+sudo bash -c 'cat <<EOF > /path/to/your/file.txt
 [boot]
 systemd=true
-EOF
+EOF'
 
 # Install Apache HTTP server
 sudo yum update -y
