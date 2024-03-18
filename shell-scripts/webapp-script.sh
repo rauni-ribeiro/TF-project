@@ -8,6 +8,12 @@ set -eu
 
 # Check if systemd is available
 if [ -x /bin/systemctl ]; then
+    # Add systemd configuration to wsl.conf
+    sudo nano /etc/wsl.conf <<EOF
+[boot]
+systemd=true
+EOF
+
     # Install Apache HTTP server
     sudo yum update -y
     sudo yum install -y httpd
