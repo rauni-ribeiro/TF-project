@@ -1,8 +1,5 @@
 #!/bin/bash
-
-sudo su
-yum update -y
-yum install -y httpd.x86_64
-sudo aws s3 cp s3://tfproject-html/index.html /var/www/html/ --metadata-directive REPLACE --acl public-read
-systemctl start httpd
-systemctl enable httpd
+sudo apt update -y
+sudo apt install apache2 -y
+sudo systemctl start apache2
+echo "Hello from webapp-script.sh" | sudo tee /var/www/html/index.html
