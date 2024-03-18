@@ -7,7 +7,7 @@ pwd
 set -eu
 
 # Add systemd configuration to wsl.conf
-sudo bash -c 'cat <<EOF > /path/to/your/file.txt
+sudo bash -c 'cat <<EOF > /etc/wsl.conf
 [boot]
 systemd=true
 EOF'
