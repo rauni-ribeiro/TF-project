@@ -136,13 +136,6 @@ resource "aws_route_table_association" "tf_subnet_association" {
   route_table_id = aws_route_table.tf_route_table.id
 }
 
-#Creating data resource to fetch real time information about subnets
-data "aws_subnets" "selected_subnets" {
-  filter {
-    name = "tag:Name"
-    values = ["TFproject-Subnet"]
-  }
-}
 
 #Creating an autoscaling group  
 resource "aws_autoscaling_group" "tf_auto_scaling_group" {
@@ -151,7 +144,7 @@ resource "aws_autoscaling_group" "tf_auto_scaling_group" {
   max_size = 6
   min_size = 1
 
-  vpc_zone_identifier = [data.aws_subnets.selected_subnets.id]
+  vpc_zone_identifier = [aws_subnet.tf_subnet.id]
 
   launch_template {
     id = aws_launch_template.tf_launch_template.id
