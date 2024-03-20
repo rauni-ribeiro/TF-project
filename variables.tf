@@ -30,7 +30,7 @@ variable "s3_bucket_name" {
 }
 
 variable "webserver-sample" {
-  type = string
+  type    = string
   default = "web-server-sample"
 }
 
