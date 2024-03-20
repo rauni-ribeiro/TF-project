@@ -166,5 +166,5 @@ resource "aws_launch_template" "tf_launch_template" {
   image_id = var.ami_id
   instance_type = var.instance_type
   key_name = var.key_name
-  user_data = var.user_data_webserver_script
+  user_data = base64encode(var.user_data_webserver_script)
 }
