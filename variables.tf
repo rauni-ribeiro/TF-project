@@ -42,4 +42,3 @@ variable "aws_iam_roles" {
 variable "user_data_webserver_script" {
   default = "#!/bin/bash\nsudo yum update -y\nsudo yum install -y aws-cli httpd\naws s3 cp s3://tfproject-html/index.html /var/www/html/ --metadata-directive REPLACE --acl public-read\nsudo systemctl start httpd\nsudo systemctl enable httpd"
 }
-
