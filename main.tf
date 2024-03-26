@@ -136,23 +136,6 @@ resource "aws_route_table_association" "tf_subnet_association" {
   route_table_id = aws_route_table.tf_route_table.id
 }
 
-
-#Creating an autoscaling group  
-resource "aws_autoscaling_group" "tf_auto_scaling_group" {
-  name = "TFproject-ASG"
-  desired_capacity = 1  #Keeping the desired capacity to 1 for the moment.
-  max_size = 1
-  min_size = 1
-
-  vpc_zone_identifier = [aws_subnet.tf_subnet.id]
-
-  launch_template {
-    id = aws_launch_template.tf_launch_template.id
-    version = "$Latest"
-  }
-
-}
-
 #Creating a Launch Template
 resource "aws_launch_template" "tf_launch_template" {
   name = "TFproject-LaunchTemplate"
