@@ -23,8 +23,8 @@ resource "aws_iam_role" "ec2_role" {
 
 #creating the policy attachment for our IAM role (ec2_role) 
 resource "aws_iam_role_policy_attachment" "ec2_policy_attachment" {
-  count = length(var.aws_iam_roles)
-  role = aws_iam_role.ec2_role.name
+  count      = length(var.aws_iam_roles)
+  role       = aws_iam_role.ec2_role.name
   policy_arn = var.aws_iam_roles[count.index]
 }
 
@@ -43,18 +43,18 @@ resource "aws_instance" "webserver" {
   tags = {
     Name = "webserver"
   }
-  iam_instance_profile = aws_iam_instance_profile.tfproject_profile.name #Associating the IAM instance profile with the EC2 instance.
-  vpc_security_group_ids = [aws_security_group.SG.id]  #Assigning our Security Group ID to our EC2 instance.
-  subnet_id = aws_subnet.tf_subnet.id #Assigning our Subnet ID to our EC2 instance.
-  associate_public_ip_address = true #assigning a public IPv4 address to our EC2 instance.
-  user_data = var.user_data_webserver_script # Assigning the webserver script to our user
+  iam_instance_profile        = aws_iam_instance_profile.tfproject_profile.name #Associating the IAM instance profile with the EC2 instance.
+  vpc_security_group_ids      = [aws_security_group.SG.id]                      #Assigning our Security Group ID to our EC2 instance.
+  subnet_id                   = aws_subnet.tf_subnet.id                         #Assigning our Subnet ID to our EC2 instance.
+  associate_public_ip_address = true                                            #assigning a public IPv4 address to our EC2 instance.
+  user_data                   = var.user_data_webserver_script                  # Assigning the webserver script to our user
 }
 
 terraform {
   backend "s3" {
-    bucket = "tfproject-us-east-1-tfstate"
-    key = "build/terraform.tfstate"  #specify the state file name + creates a build folder
-    region = "us-east-1"
+    bucket  = "tfproject-us-east-1-tfstate"
+    key     = "build/terraform.tfstate" #specify the state file name + creates a build folder
+    region  = "us-east-1"
     profile = "default"
   }
 }
@@ -63,7 +63,7 @@ terraform {
 resource "aws_security_group" "SG" {
   name        = "TFproject-SG"
   description = "Allow HTTP and SSH traffic from any source"
-  vpc_id = aws_vpc.tf_vpc.id
+  vpc_id      = aws_vpc.tf_vpc.id
 
   ingress {
     from_port   = 80
@@ -83,6 +83,13 @@ resource "aws_security_group" "SG" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -109,7 +116,7 @@ resource "aws_internet_gateway" "tf_igw" {
 
 #Creating a Subnet 
 resource "aws_subnet" "tf_subnet" {
-  vpc_id = aws_vpc.tf_vpc.id
+  vpc_id     = aws_vpc.tf_vpc.id
   cidr_block = "10.0.0.0/24"
   tags = {
     Name = "TFproject-Subnet"
@@ -138,9 +145,9 @@ resource "aws_route_table_association" "tf_subnet_association" {
 
 #Creating a Launch Template
 resource "aws_launch_template" "tf_launch_template" {
-  name = "TFproject-LaunchTemplate"
-  image_id = var.ami_id
+  name          = "TFproject-LaunchTemplate"
+  image_id      = var.ami_id
   instance_type = var.instance_type
-  key_name = var.key_name
-  user_data = base64encode(var.user_data_webserver_script)
+  key_name      = var.key_name
+  user_data     = base64encode(var.user_data_webserver_script)
 }
