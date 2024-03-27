@@ -36,7 +36,7 @@ variable "webserver-sample" {
 
 variable "aws_iam_roles" {
   type    = list(string)
-  default = ["arn:aws:iam::aws:policy/AWSCodeBuildReadOnlyAccess", "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess", "arn:aws:iam::aws:policy/AmazonS3FullAccess"]
+  default = ["arn:aws:iam::aws:policy/AWSCodeBuildAdminAccess", "arn:aws:iam::aws:policy/AmazonEC2FullAccess", "arn:aws:iam::aws:policy/AmazonS3FullAccess", "arn:aws:iam::098741617361:policy/AllowPassRole", "arn:aws:iam::aws:policy/AWSCodeDeployFullAccess"]
 }
 
 variable "user_data_webserver_script" {
