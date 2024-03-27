@@ -1,3 +1,17 @@
-# TF-Project by Rauni Ribeiro
+# Terraform + AWS CodePipeline project by Rauni Ribeiro
 
-### Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tristique interdum consequat. Morbi quis fermentum erat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas placerat euismod ex, pharetra finibus arcu feugiat vitae. Proin ut lacus euismod, molestie mauris in, sollicitudin elit. Aliquam justo justo, pharetra sodales elit vitae, commodo auctor sem. Integer aliquam porta erat. Aenean aliquam luctus nulla, porta lobortis turpis auctor in. Etiam orci turpis, consequat ut condimentum a, maximus a lacus. Quisque auctor consequat faucibus. Pellentesque mattis facilisis velit, eget commodo magna posuere ac. Nunc id lorem porta, consectetur arcu sit amet, posuere est.
+## README.md
+
+Welcome to the Terraform project for configuring AWS resources! 🌩️ As a Cloud Engineer, you can easily set up your infrastructure using this Terraform script. 
+
+### Introduction
+This project focuses on provisioning AWS resources using Terraform. You can configure the provider, IAM roles, security groups, VPC, subnets, and more with ease. Feel free to customize the region, instance types, and other parameters to suit your requirements.
+
+### Getting Started
+To get started, make sure you have Terraform installed on your machine. Simply clone this repository and run `terraform init`, `terraform plan`, and `terraform apply` to deploy your infrastructure.
+
+### More Details
+For more detailed explanations and insights, visit [rauniribeiro.com](https://rauniribeiro.com) to explore additional resources and guides related to cloud engineering and Terraform.
+
+### Embrace the Cloud ☁️
+Start building your cloud infrastructure effortlessly with Terraform and AWS. Happy coding! 🚀
