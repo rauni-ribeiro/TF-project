@@ -40,5 +40,5 @@ variable "aws_iam_roles" {
 }
 
 variable "user_data_webserver_script" {
-  default = "#!/bin/bash\nsudo yum update -y\nsudo yum install -y aws-cli httpd\naws s3 cp s3://tfproject-html/index.html /var/www/html/ --metadata-directive REPLACE --acl public-read\nsudo systemctl start httpd\nsudo systemctl enable httpd\nsudo yum install ruby\nsudo yum install wget\ncd /home/ec2-user\nwget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install\nchmod +x ./install\nsudo ./install auto\nsudo service codedeploy-agent start\nsudo chkconfig codedeploy-agent on"
+  default = "#!/bin/bash\nsudo yum update -y\nsudo yum install -y aws-cli httpd\naws s3 cp s3://tfproject-html/index.html /var/www/html/ --metadata-directive REPLACE --acl public-read\nsudo systemctl start httpd\nsudo systemctl enable httpd\nsudo yum install ruby -y\nsudo yum install wget\ncd /home/ec2-user\nwget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install\nchmod +x ./install\nsudo ./install auto\nsudo service codedeploy-agent start\nsudo chkconfig codedeploy-agent on"
 }
