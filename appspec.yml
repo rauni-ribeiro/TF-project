@@ -1,117 +1,14 @@
 version: 0.0
-Resources:
-  - EC2Role:
-      Type: AWS::IAM::Role
-      Properties:
-        RoleName: EC2role
-        AssumeRolePolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-            - Effect: Allow
-              Principal:
-                Service: ec2.amazonaws.com
-              Action: sts:AssumeRole
-
-  - EC2PolicyAttachment:
-      Type: AWS::IAM::RolePolicy
-      Properties:
-        Roles:
-          - Ref: EC2Role
-        PolicyArn: <var.aws_iam_roles>
-
-  - InstanceProfile:
-      Type: AWS::IAM::InstanceProfile
-      Properties:
-        InstanceProfileName: tfproject_profile
-        Roles:
-          - Ref: EC2Role
-
-  - WebServerInstance:
-      Type: AWS::EC2::Instance
-      Properties:
-        ImageId: <var.ami_id>
-        InstanceType: <var.instance_type>
-        KeyName: <var.key_name>
-        IamInstanceProfile: <aws_iam_instance_profile.tfproject_profile.name>
-        SecurityGroupIds:
-          - <aws_security_group.SG.id>
-        SubnetId: <aws_subnet.tf_subnet.id>
-        AssociatePublicIpAddress: true
-        UserData: <var.user_data_webserver_script>
-
-  - SecurityGroup:
-      Type: AWS::EC2::SecurityGroup
-      Properties:
-        GroupName: TFproject-SG
-        Description: Allow HTTP and SSH traffic from any source
-        VpcId: <aws_vpc.tf_vpc.id>
-        SecurityGroupIngress:
-          - IpProtocol: tcp
-            FromPort: 80
-            ToPort: 80
-            CidrIp: 0.0.0.0/0
-          - IpProtocol: tcp
-            FromPort: 22
-            ToPort: 22
-            CidrIp: 0.0.0.0/0
-          - IpProtocol: tcp
-            FromPort: 443
-            ToPort: 443
-            CidrIp: 0.0.0.0/0
-        SecurityGroupEgress:
-          - IpProtocol: "-1"
-            CidrIp: 0.0.0.0/0
-        Tags:
-          - Key: Name
-            Value: TFproject-SG
-
-  - VPC:
-      Type: AWS::EC2::VPC
-      Properties:
-        CidrBlock: 10.0.0.0/16
-        Tags:
-          - Key: Name
-            Value: TFproject-VPC
-
-  - InternetGateway:
-      Type: AWS::EC2::InternetGateway
-      Properties:
-        Tags:
-          - Key: Name
-            Value: TFproject-IGW
-
-  - Subnet:
-      Type: AWS::EC2::Subnet
-      Properties:
-        VpcId: <aws_vpc.tf_vpc.id>
-        CidrBlock: 10.0.0.0/24
-        Tags:
-          - Key: Name
-            Value: TFproject-Subnet
-
-  - RouteTable:
-      Type: AWS::EC2::RouteTable
-      Properties:
-        VpcId: <aws_vpc.tf_vpc.id>
-        Routes:
-          - DestinationCidrBlock: 0.0.0.0/0
-            GatewayId: <aws_internet_gateway.tf_igw.id>
-        Tags:
-          - Key: Name
-            Value: TFproject-RouteTable
-
-  - RouteTableAssociation:
-      Type: AWS::EC2::SubnetRouteTableAssociation
-      Properties:
-        SubnetId: <aws_subnet.tf_subnet.id>
-        RouteTableId: <aws_route_table.tf_route_table.id>
-
-  - LaunchTemplate:
-      Type: AWS::EC2::LaunchTemplate
-      Properties:
-        LaunchTemplateName: TFproject-LaunchTemplate
-        LaunchTemplateData:
-          ImageId: <var.ami_id>
-          InstanceType: <var.instance_type>
-          KeyName: <var.key_name>
-          UserData: <base64encode(var.user_data_webserver_script)>
+os: linux
+files:
+  - source: /dist/myapp
+    destination: /var/www/html
+hooks:
+  BeforeInstall:
+    - location: shell-scripts/aws-credentials.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: shell-scripts/terraform-apply.sh
+      timeout: 60
+      runas: root
