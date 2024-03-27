@@ -3,12 +3,3 @@ os: linux
 files:
   - source: /shell-scripts
     destination: /var/www/html
-hooks:
-  BeforeInstall:
-    - location: shell-scripts/aws-credentials.sh
-      timeout: 300
-      runas: root
-  AfterInstall:
-    - location: shell-scripts/terraform-apply.sh
-      timeout: 60
-      runas: root
