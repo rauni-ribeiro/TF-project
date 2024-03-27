@@ -1,14 +1,5 @@
 version: 0.0
 os: linux
 files:
-  - source: shell-scripts
-    destination: /var/www/html/myapp
-permissions:
-  - object: /var/www/html/myapp
-    pattern: "**"
-    owner: root
-    group: www-data
-    mode: 755
-hooks:
-  AfterInstall:
-    - location: shell-scripts/SSM_agent_dependencies.sh
+  - source: /shell-scripts
+    destination: /var/www/html
